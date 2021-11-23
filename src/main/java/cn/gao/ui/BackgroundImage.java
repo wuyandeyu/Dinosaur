@@ -1,0 +1,39 @@
+package cn.gao.ui;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+
+public class BackgroundImage {
+    public BufferedImage image;//±³¾°Í¼
+    private BufferedImage image1,image2;//¹ö¶¯µÄ±³¾°Í¼
+    private Graphics2D g;//»æÍ¼¶ÔÏó
+    private int x1,x2;//»æÖÆ¹ö¶¯Í¼Æ¬×ø±ê
+    public static final int SPEED =4;//¹ö¶¯ËÙ¶È
+    public BackgroundImage(){
+        try{
+            image1= ImageIO.read(new File("src/main/resources/image/±³¾°.png"));
+            image2= ImageIO.read(new File("src/main/resources/image/±³¾°.png"));
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        image = new BufferedImage(800,300,BufferedImage.TYPE_INT_RGB);
+        g=image.createGraphics();
+        x1=0;x2=800;
+        g.drawImage(image1,x1,0,null);
+    }
+    public void roll(){
+        x1-=SPEED;//Í¼Ò»×óÒÆ
+        x2-=SPEED;//Í¼¶þ×óÒÆ
+        if(x1<=-800){
+            x1=800;//»Øµ½ÓÒ²à
+        }
+        if(x2<=-800){
+            x2=800;//»Øµ½ÓÒ²à
+        }
+        g.drawImage(image1,x1,0,null);
+        g.drawImage(image2,x2,0,null);
+    }
+}
